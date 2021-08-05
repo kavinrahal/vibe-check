@@ -6,10 +6,11 @@ import {
   Switch,
   Route
 } from "react-router-dom";
-import landing from './components/Landing';
 import Profile from './components/Profile';
 import MakeNewPost from './components/MakeNewPost';
 import ViewAllPosts from './components/ViewAllPosts';
+import Dashboard from './components/Dashboard';
+import Landing from './components/Landing';
 
 
 function App() {
@@ -17,8 +18,8 @@ function App() {
     <Router>
         <div className="App">
           <Switch>
-            <Route path="/" exact component={landing}></Route>
-            <Route path = "/landing" exact component={landing}></Route>
+            <Route path="/" exact component={Landing}></Route>
+            <Route path = "/dash" exact component={Dashboard}></Route>
             <Route path = "/profile" exact component = {Profile}></Route>
             <Route path = "/make" exact component = {MakeNewPost}></Route>
             <Route path = "/view" exact component = {ViewAllPosts}></Route>
