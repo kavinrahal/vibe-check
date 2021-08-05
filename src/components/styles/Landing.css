@@ -1,46 +1,46 @@
-.landingWrapper{
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+.pageWrapper{
     display: flex;
-    flex-direction: column;
     height: 100vh;
     background: #181822;
-    overflow-y: scroll;
 }
 
-.landingBtns{
+.content{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+}
+
+.dashTop{
+    display: flex;
+    margin-top: 40px;
+    width: 90%;
+    align-self: center;
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.signOut{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     position: absolute;
     right: 5%;
-    display: flex;
-    width: 20%;
-    justify-content: space-evenly;
-}
-
-.signIn{
-    align-self: center;
+    width: 125px;
+    height: 50px;
+    color: red;
     background: none;
-    border: none;
-    color: #5fa8a1;
-    font-size: 20px;
-    font-family: 'Poppins', sans-serif;
-    transition: 0.3s;
-}
-
-.signIn:hover{
-    color: white;
-}
-
-.signUp{
-    align-self: center;
-    background: #5fa8a1;
-    color: white;
-    font-size: 15px;
     border-radius: 5px;
-    height: 40px;
-    width: 100px;
+    border-style: solid;
+    border-color: #5fa8a1;
+    border-width: 0.5px;
+    transition: 0.5px;
     font-family: 'Poppins', sans-serif;
-    border-style: none;
 }
 
-.signUpHover {
+.signOutHover {
     -webkit-transform: perspective(1px) translateZ(0);
     transform: perspective(1px) translateZ(0);
     -webkit-transition-property: color;
@@ -48,10 +48,10 @@
     -webkit-transition-duration: 0.3s;
     transition-duration: 0.3s;
     border-radius: 5px;
-    color: white;
+    color: red;
 }
 
-.signUpHover:before {
+.signOutHover:before {
     content: "";
     position: absolute;
     border-radius: 5px;
@@ -61,7 +61,7 @@
     right: 0;
     bottom: 0;
     background-color: white;
-    color: #5fa8a1;
+    color: red;
     border-style: none;
     -webkit-transform: scaleX(0);
     transform: scaleX(0);
@@ -75,60 +75,12 @@
     transition-timing-function: ease-out;
 }
 
-.signUpHover:hover, .signUpHover:focus, .signUpHover:active {
-    color: #5fa8a1;
-    border-radius: 5px;
+.signOutHover:hover, .signOutHover:focus, .signOutHover:active {
+    color: red;
 }
 
-.signUpHover:hover:before, .signUpHover:focus:before, .signUpHover:active:before {
+.signOutHover:hover:before, .signOutHover:focus:before, .signOutHover:active:before {
     -webkit-transform: scaleX(1);
     transform: scaleX(1);
     border-radius: 5px;
-}
-
-.landingQuote{
-    font-size: 35px;
-    color: white;
-    width: 40%;
-    margin-left: 20px;
-    text-align: start;
-}
-
-.landingMainQuote{
-    font-size: 40px;
-    color: white;
-    width: 40%;
-    margin-left: 20px;
-    text-align: start;
-}
-
-.landingContent{
-    display: flex;
-    flex-direction: row;
-    width: 90%;
-    height: 100%;
-    align-self: center;
-    justify-content: space-evenly;
-    align-items: center;
-    margin-top: 20px;
-}
-
-.landingImg{
-    width: 70%;
-    height: 100%;
-}
-
-.landingAbout{
-    display: flex;
-    flex-direction: column;
-    width: 90%;
-    align-self: center;
-    margin-top: 40px;
-}
-
-.aboutDesc{
-    text-align: start;
-    color: #64647a;
-    margin-left: 20px;
-    margin-top: 20px;
 }
