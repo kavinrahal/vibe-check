@@ -5,11 +5,8 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 
 export default function Profile(){
-    const [name, setName] = useState("");
     const [newName, setNewName] = useState("");
-    const [password, setPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
-    const [errors, setErrors] = useState(new Map);
     const history = useHistory();
     var userPosts = [];
 
@@ -21,24 +18,15 @@ export default function Profile(){
     const userPassword = userDetails.password;
     userPosts = userDetails.posts;
 
-    const validate = () => {
-        let retVal = true
-        let fieldsName = ['name', 'password']
-        let fields = [name, password]
-        let error_sections = new Map()
-    
-        for (let k = 0; k < fields.length; k++) {
-          if (fields[k] == "") {
-            error_sections.set(fieldsName[k], "Cannot change to Empty")
-            console.log(fieldsName[k])
-            retVal = false
-          }
-        }
-        setErrors(error_sections);
-        return retVal;
+    const deleteAccount = () => {
+        localStorage.removeItem(email);
+        // redirect 
+        history.push({
+            pathname: '/',
+        });
     }
 
-    const onClick = () => {
+    const changeDetails = () => {
 
             if(newPassword === ""){
                 setNewPassword(userPassword);
@@ -62,9 +50,7 @@ export default function Profile(){
                 localStorage.setItem(email, JSON.stringify(customer1));
                 alert("You have changed your details successfully!");
                 sessionStorage.setItem("name", newName);
-            }
-            
-            
+            }    
     }
 
     return(
@@ -95,7 +81,7 @@ export default function Profile(){
                         onChange = {(e) => setNewPassword(e.target.value)}></input>
                     </div>
 
-                    <button className = "submitChange" onClick={() => onClick()}>Submit Changes</button>
+                    <button className = "submitChange" onClick={() => changeDetails()}>Submit Changes</button>
                 </div>
 
                 <div className = "profileQuote">If you would like to terminate your account, click the button below.</div>
@@ -106,7 +92,7 @@ export default function Profile(){
                             "Are you sure you want to Delete your Account? This Action is not reversible."
                             )
                             if (confirmBox === true) {
-                            // onClick();
+                                deleteAccount();
                             }
                         }}
                     className = "deleteAccount signOutHover">Delete Account</button>
