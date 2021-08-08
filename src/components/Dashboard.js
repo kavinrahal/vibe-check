@@ -1,11 +1,8 @@
-import {
-    BrowserRouter as Router,
-    Link
-} from "react-router-dom";
 import './styles/Dashboard.css';
 import React, { Component } from 'react';
 import SideBar from './SideBar';
 import logOut from './addons/logout.svg';
+import LogOut from "./LogOutButton";
 
 export default function Dashboard(){
     const logOutFunction = () => {
@@ -17,7 +14,7 @@ export default function Dashboard(){
             <div className = "content">
                 <div className = "dashTop">
                     <div className = "dashHead">Welcome Back, {sessionStorage.getItem("name")}</div>
-                    <Link to = "/" style={{ textDecoration: 'none'}} className = "signOut signOutHover"  onClick = {() => logOutFunction()}><img className = "navLogo" src = {logOut}></img>Sign Out</Link>
+                    <LogOut/>
                 </div>
             </div>
         </div>

@@ -1,8 +1,8 @@
 import SideBar from "./SideBar"
-import logOut from './addons/logout.svg';
 import './styles/Profile.css';
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
+import LogOut from "./LogOutButton";
 
 export default function Profile(){
     const [newName, setNewName] = useState("");
@@ -59,7 +59,7 @@ export default function Profile(){
             <div className = "content">
                 <div className = "dashTop">
                     <div className = "dashHead">Profile</div>
-                    <button className = "signOut signOutHover"><img className = "navLogo" src = {logOut}></img>Sign Out</button>
+                    <LogOut/>
                 </div>
                 <div className = "profileDetails">
                     <input type = "file" className = "avatar"></input>

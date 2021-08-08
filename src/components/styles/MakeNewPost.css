@@ -1,0 +1,12 @@
+.newPostQuote{
+    width: 90%;
+    text-align: start;
+    align-self: center;
+    color: #64647a;
+}
+
+.postText{
+    width: 70%;
+    height: 300px;
+    margin-bottom: 20px;
+}
