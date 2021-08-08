@@ -1,23 +1,29 @@
 import './styles/Landing.css';
 import landingPic from './addons/landingPic.png';
 import Footer from './Footer';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+} from "react-router-dom";
 
 export default function Landing(){
     return(
         <div className = "landingWrapper">
             <div className = "dashTop">
-                <div className = "landingHead">Vibe Check</div>
+                <Link to = "/" style={{ textDecoration: 'none', color: 'white' }} className = "dashHead">Vibe Check</Link>
                 <div className = "landingBtns">
-                    <button className = "signIn">Sign In</button>
-                    <button className = "signUp signUpHover">Sign Up</button>
+                    <Link to = "/signIn" style={{ textDecoration: 'none' }} className = "signIn">Sign In</Link>
+                    <Link to = "/signUp" style={{ textDecoration: 'none' }} className = "signUp signUpHover">Sign Up</Link>
                 </div>
             </div>
             <div className = "landingContent">
-                <div className = "landingMainQuote">Some weird shit about a vibe check</div>
+                <div className = "landingMainQuote">Times haven't been easy, But your mates make it better.</div>
                 <img className = "landingImg" src = {landingPic}></img>
             </div>
             <div className = "landingAbout">
-                <div className = "landingQuote">So, What are we?</div>
+                <div className = "landingQuote">So, Who are we?</div>
                 <div className = "aboutDesc">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed faucibus vehicula mi at pretium. 
                 Phasellus at lacus eu metus egestas facilisis vitae at nisl. Mauris suscipit, est at molestie molestie, est justo finibus velit, 

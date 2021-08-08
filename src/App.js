@@ -1,6 +1,5 @@
-import logo from './logo.svg';
 import './App.css';
-
+import PrivateRoute from './components/PrivateRoute';
 import {
   BrowserRouter as Router,
   Switch,
@@ -11,6 +10,8 @@ import MakeNewPost from './components/MakeNewPost';
 import ViewAllPosts from './components/ViewAllPosts';
 import Dashboard from './components/Dashboard';
 import Landing from './components/Landing';
+import SignUp from './components/SignUp';
+import SignIn from './components/SignIn';
 
 
 function App() {
@@ -19,10 +20,12 @@ function App() {
         <div className="App">
           <Switch>
             <Route path="/" exact component={Landing}></Route>
-            <Route path = "/dash" exact component={Dashboard}></Route>
-            <Route path = "/profile" exact component = {Profile}></Route>
-            <Route path = "/make" exact component = {MakeNewPost}></Route>
-            <Route path = "/view" exact component = {ViewAllPosts}></Route>
+            <PrivateRoute path = "/dash" exact component={Dashboard}></PrivateRoute>
+            <PrivateRoute path = "/profile" exact component = {Profile}></PrivateRoute>
+            <PrivateRoute path = "/make" exact component = {MakeNewPost}></PrivateRoute>
+            <PrivateRoute path = "/view" exact component = {ViewAllPosts}></PrivateRoute>
+            <Route path = "/signUp" exact component = {SignUp}></Route>
+            <Route path = "/signIn" exact component = {SignIn}></Route>
           </Switch>
         </div>
       </Router>

@@ -19,10 +19,9 @@ export default function SideBar(){
                 <div className = "sloganTitle">Vibe Check</div>
             </div>
             <div className = "navigation">
-                <Link to = "/dash" className = "nav hvr-sweep-to-bottom"><div className = "navItem"><img src = {home} className = "navLogo"></img>Home</div></Link>
-                <Link to = "/profile" className = "nav hvr-sweep-to-bottom"><div className = "navItem"><img src = {profile} className = "navLogo"></img>Profile</div></Link>
-                <Link to = "/make" className = "nav hvr-sweep-to-bottom"><div className = "navItem"><img src = {newPost} className = "navLogo"></img>Make New Post</div></Link>
-                <Link to = "/view" className = "nav hvr-sweep-to-bottom"><div className = "navItem"><img src = {feed} className = "navLogo"></img>View My Posts</div></Link>
+                <Link to = "/dash" style={{ textDecoration: 'none', color: '#5fa8a1'}} className = "nav hvr-sweep-to-bottom"><div className = "navItem"><img src = {home} className = "navLogo"></img>Home</div></Link>
+                <Link to = "/profile" style={{ textDecoration: 'none', color: '#5fa8a1' }} className = "nav hvr-sweep-to-bottom"><div className = "navItem"><img src = {profile} className = "navLogo"></img>Profile</div></Link>
+                <Link to = "/make" style={{ textDecoration: 'none', color: '#5fa8a1' }} className = "nav hvr-sweep-to-bottom"><div className = "navItem"><img src = {newPost} className = "navLogo"></img>Make New Post</div></Link>
             </div>
         </div>
     );

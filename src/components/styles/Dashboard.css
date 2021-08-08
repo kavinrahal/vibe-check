@@ -2,7 +2,6 @@
 
 .pageWrapper{
     display: flex;
-    height: 100vh;
     background: #181822;
 }
 
@@ -42,6 +41,7 @@
     border-width: 0.5px;
     transition: 0.5px;
     font-family: 'Poppins', sans-serif;
+    font-size: 15px;
 }
 
 .signOutHover {
