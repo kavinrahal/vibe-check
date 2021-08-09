@@ -10,3 +10,14 @@
     height: 300px;
     margin-bottom: 20px;
 }
+
+.newPostForm{
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 40px;
+    width: 90%;
+    height: 50%;
+}

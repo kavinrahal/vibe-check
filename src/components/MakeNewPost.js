@@ -46,7 +46,7 @@ export default function MakeNewPost(){
                     <LogOut/>
                 </div>
                 <div className = "newPostQuote">Let the world know what your vibes are like today!</div>
-                <div className = "signUpForm">
+                <div className = "newPostForm">
                         <textarea className = "formInput postText" onChange = {(e) => setPost(e.target.value)}></textarea>
                         <button className = "signUpButton signUp signUpHover" onClick={() => uploadPost()}>Check my Vibe!</button>
                 </div>

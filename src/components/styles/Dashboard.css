@@ -88,3 +88,30 @@
     transform: scaleX(1);
     border-radius: 5px;
 }
+
+.postSection{
+    display: flex;
+    flex-direction: column;
+}
+
+.feedQuote{
+    color: white;
+    text-align: left;
+    width: 90%;
+    align-self: center;
+    font-size: 25px;
+    margin-bottom: 20px;
+}
+
+.noPosts{
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+    width: 50%;
+    padding: 20px;
+    background: #23232f;
+    border-radius: 15px;
+}
