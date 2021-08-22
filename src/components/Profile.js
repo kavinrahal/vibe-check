@@ -9,6 +9,7 @@ export default function Profile(){
     const [newPassword, setNewPassword] = useState("");
     const history = useHistory();
     var userPosts = [];
+    var avatar;
 
     const email = sessionStorage.getItem("email");
     // Retrieve the object from storage
@@ -17,6 +18,8 @@ export default function Profile(){
     // Retrieve user password
     const userPassword = userDetails.password;
     userPosts = userDetails.posts;
+    var profilePicture = userDetails.avatar;
+    var ppUrl = "data:image/jpeg;base64," + profilePicture;
 
     const deleteAccount = () => {
         localStorage.removeItem(email);
@@ -62,7 +65,8 @@ export default function Profile(){
                     <LogOut/>
                 </div>
                 <div className = "profileDetails">
-                    <input type = "file" className = "avatar"></input>
+                    {<img className = "preview" src = {ppUrl}/> }
+                    <br></br>
                     <div className = "formLabel">{sessionStorage.getItem("name")}</div>
                     <div className = "formLabel">{sessionStorage.getItem("email")}</div>
                     <div className = "formLabel">Joined Date: {sessionStorage.getItem("joinDate")}</div>

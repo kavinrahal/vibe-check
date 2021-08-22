@@ -7,7 +7,6 @@ import {
 } from "react-router-dom";
 import Profile from './components/Profile';
 import MakeNewPost from './components/MakeNewPost';
-import ViewAllPosts from './components/ViewAllPosts';
 import Dashboard from './components/Dashboard';
 import Landing from './components/Landing';
 import SignUp from './components/SignUp';
@@ -23,7 +22,6 @@ function App() {
             <PrivateRoute path = "/dash" exact component={Dashboard}></PrivateRoute>
             <PrivateRoute path = "/profile" exact component = {Profile}></PrivateRoute>
             <PrivateRoute path = "/make" exact component = {MakeNewPost}></PrivateRoute>
-            <PrivateRoute path = "/view" exact component = {ViewAllPosts}></PrivateRoute>
             <Route path = "/signUp" exact component = {SignUp}></Route>
             <Route path = "/signIn" exact component = {SignIn}></Route>
           </Switch>

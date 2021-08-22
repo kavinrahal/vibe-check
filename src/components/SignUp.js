@@ -7,8 +7,12 @@ import {
 } from "react-router-dom";
 import signUpPic from './addons/signUpPic.png';
 import Footer from './Footer';
+import imageToBase64 from 'image-to-base64/browser';
 
 export default function SignUp(){
+    const [selectedFile, setSelectedFile] = useState();
+    var avatar;
+    const [preview, setPreview] = useState();
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -50,30 +54,67 @@ export default function SignUp(){
         return retVal
     }
 
-    const handleSubmit = async (e) => {
-        if(validate()){
-            const customer1 = {
-                name: name,
-                email: email,
-                password: password,
-                posts: [],
-                joinDate: joinDate
-            };
-
-            // Put the object into storage
-            localStorage.setItem(email, JSON.stringify(customer1));
-            alert("You have succesfully registered to Vibe Check!");
-
-            // Reset data
-            setName("");
-            setEmail("");
-            setPassword("");
-
-            // Redirect to Login page
-            history.push({
-                pathname: '/signIn',
-            });
+    useEffect(() => {
+        if (!selectedFile) {
+            setPreview(undefined);
+            return;
         }
+
+        const objectUrl = URL.createObjectURL(selectedFile);
+        setPreview(objectUrl);
+
+        // free memory when ever this component is unmounted
+        return () => URL.revokeObjectURL(objectUrl);
+    }, [selectedFile])
+
+    const onSelectFile = e => {
+        if (!e.target.files || e.target.files.length === 0) {
+            setSelectedFile(undefined);
+            return;
+        }
+
+        setSelectedFile(e.target.files[0]);
+    }
+
+    const handleSubmit = () => { 
+        const avatarUrl = URL.createObjectURL(selectedFile);
+        imageToBase64(avatarUrl) // Path to the image
+        .then(
+            (response) => {
+                avatar = response;
+                    if(validate()){
+                        const customer1 = {
+                            avatar: avatar,
+                            name: name,
+                            email: email,
+                            password: password,
+                            posts: [],
+                            joinDate: joinDate
+                        };
+
+                        // Put the object into storage
+                        localStorage.setItem(email, JSON.stringify(customer1));
+                        alert("You have succesfully registered to Vibe Check!");
+
+                        // Reset data
+                        setName("");
+                        setEmail("");
+                        setPassword("");
+
+                        // Redirect to Login page
+                        history.push({
+                            pathname: '/signIn',
+                });
+            }
+                console.log(avatar);
+            }
+        )
+        .catch(
+            (error) => {
+                console.log(error); // Logs an error if there was one
+            }
+        )
+        
     }
 
     return(
@@ -89,13 +130,19 @@ export default function SignUp(){
                 <div className = "signUpSection">
                     <div className = "signUpQuote">Sign Up to have your vibes lifted!</div>
                     <div className = "signUpForm">
+                         {selectedFile &&  <img className = "preview" src={preview} />}
+                        <br></br>
+                        <div className = "formElement">
+                            <div className = "formLabel">Avatar</div>
+                            <input type='file' onChange={onSelectFile} />
+                        </div>
+                        <img></img>
                         <div className = "formElement">
                             <div className = "formLabel">Name</div>
                             <input className = "formInput" type = "text" placeholder = " Name" value={name}
                             onChange={(e) => setName(e.target.value)} required></input>
                         </div>
                         <span className="errorMessage"> {errors.get("name")} </span>
-
                         <div className = "formElement">
                                 <div className = "formLabel">Email</div>
                                 <input className = "formInput" type = "email" placeholder = " Email" value = {email}

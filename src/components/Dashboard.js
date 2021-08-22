@@ -12,6 +12,7 @@ export default function Dashboard(){
     var retrievedObject = localStorage.getItem(email);
     const userDetails = JSON.parse(retrievedObject);
     userPosts = userDetails.posts;
+    
 
     return(
         <div className = "pageWrapper">

@@ -55,6 +55,7 @@ export default function SignIn(){
                 // Set Session Variable
                 sessionStorage.setItem("name", userDetails.name)
                 sessionStorage.setItem("email", userDetails.email);
+                sessionStorage.setItem("avatar", userDetails.avatar);
                 sessionStorage.setItem("joinDate", userDetails.joinDate)
                 sessionStorage.setItem("isLoggedIn", true)
 

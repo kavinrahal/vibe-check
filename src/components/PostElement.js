@@ -5,25 +5,43 @@ import { useHistory } from "react-router";
 const PostElement = ({ element }) => {
     var userPosts = [];
     const [showEdit, setShowEdit] = useState(false)
-    const [post, setPost] = useState("");
+    const [post, setPost] = useState();
+    const [textEdit, setEditText] = useState("");
     const history = useHistory();
 
     const email = sessionStorage.getItem("email");
+    const avatar = sessionStorage.getItem("avatar");
+    const name = sessionStorage.getItem("name");
     // Retrieve the object from storage
     var retrievedObject = localStorage.getItem(email);
     const userDetails = JSON.parse(retrievedObject);
     userPosts = userDetails.posts;
-    var index = userPosts.indexOf(element);
+    const textPost = Object.values(element)[0];
+    const imgPost = Object.values(element)[1];
+    var ppUrl = "data:image/jpeg;base64," + avatar;
+
+    function findWithAttr(array, attr, value) {
+        for(var i = 0; i < array.length; i += 1) {
+            if(array[i][attr] === value) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    var index = findWithAttr(userPosts, "text", textPost);
+    var imgUrl = "data:image/jpeg;base64," + imgPost;
 
     const openEdit = () => (setShowEdit(true));
     const closeEdit = () => (setShowEdit(false));
     
     const editPost = () => {
 
-        if(post != ""){
-            userPosts[index] = post;
+        if(textEdit != ""){
+            userPosts[index].text = textEdit;
 
             const customer1 = {
+                avatar:userDetails.avatar,
                 name: userDetails.name,
                 email: userDetails.email,
                 password: userDetails.password,
@@ -48,6 +66,7 @@ const PostElement = ({ element }) => {
         if (index > -1) {
             userPosts.splice(index, 1);
             const customer1 = {
+                avatar:userDetails.avatar,
                 name: userDetails.name,
                 email: userDetails.email,
                 password: userDetails.password,
@@ -65,8 +84,13 @@ const PostElement = ({ element }) => {
 
     return(
         <div className = "postElement">
+                <div className = "userText">
+                    <div className = "postName">{name}</div>
+                    <img className = "userAvatar" src = {ppUrl}/>
+                </div>
                 <div className = "postText">
-                    {element}
+                    <img className = "preview" src = {imgUrl}/>
+                    {textPost}
                 </div>
                 <div className = "postButtons">
                     <div className = "editControls">
@@ -85,7 +109,7 @@ const PostElement = ({ element }) => {
                     <br></br>
                     {showEdit ? 
                         <div className = "editArea">
-                            <textarea className = "formInput postText" onChange = {(e) => setPost(e.target.value)}></textarea>
+                            <textarea className = "formInput postText" onChange = {(e) => setEditText(e.target.value)}></textarea>
                             <div className = "editControls">
                                 <button className = "submitEdit" onClick = {() => editPost()} >Submit Changes</button>
                                 <button className = "submitEdit" onClick = {() => closeEdit()}>Close</button>
