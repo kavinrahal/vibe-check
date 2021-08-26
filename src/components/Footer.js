@@ -1,3 +1,5 @@
+/* FOOTER - Has covid details and a basic footer for the website */
+
 import './styles/Footer.css';
 
 export default function Footer(){

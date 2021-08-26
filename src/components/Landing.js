@@ -1,10 +1,9 @@
+/* LANDING - Basic landing page for website information */
+
 import './styles/Landing.css';
 import landingPic from './addons/landingPic.png';
 import Footer from './Footer';
 import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
     Link
 } from "react-router-dom";
 
@@ -20,7 +19,7 @@ export default function Landing(){
             </div>
             <div className = "landingContent">
                 <div className = "landingMainQuote">Times haven't been easy, But your mates make it better.</div>
-                <img className = "landingImg" src = {landingPic}></img>
+                <img className = "landingImg" src = {landingPic} alt = "landing page"></img>
             </div>
             <div className = "landingAbout">
                 <div className = "landingQuote">So, Who are we?</div>

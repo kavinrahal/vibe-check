@@ -1,21 +1,21 @@
+/* SIGN IN - Sign in page for registered users to enjoy vibe check services */
+
 import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
     Link
 } from "react-router-dom";
-import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router";
+import React, {useState} from "react";
+import {useHistory} from "react-router";
 import Footer from "./Footer";
 
 export default function SignIn(){
-    const history = useHistory(new Map);
+    const history = useHistory(new Map());
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-    const [errors, setErrors] = useState(new Map);
+    const [errors, setErrors] = useState(new Map());
     const [loginFailed, setLoginFailed] = useState(false);
     const [nullUser, setNullUser] = useState(false);
-  
+    
+    // Validate input fields for logging in
     const validate = () => {
         let retVal = true
 
@@ -24,7 +24,7 @@ export default function SignIn(){
         let fields = [email, password]
         let error_sections = new Map()
         for (let k = 0; k < fields.length; k++) {
-            if (fields[k] == "") {
+            if (fields[k] === "") {
                 error_sections.set(fieldsName[k], "All Fields are Required")
                 retVal = false
             }
@@ -35,7 +35,7 @@ export default function SignIn(){
     }
 
     const handleLogin = async () => {
-          // Retrieve the object from storage
+        // Retrieve the email of logged in user from session and the logged in user object from storage
         var retrievedObject = localStorage.getItem(email);
         const userDetails = JSON.parse(retrievedObject);
         
@@ -44,34 +44,38 @@ export default function SignIn(){
             const userPassword = userDetails.password;
             let found = false;
 
-            if(password == userPassword && userPassword != null){
+            if(password === userPassword && userPassword !== null){
                 //Login successful
                 found = true;
-                // reset fields
+                // Reset fields
                 setEmail("")
                 setPassword("")
-                // Set Session Variable
+
+                // Set Session Variables of logged in user
                 sessionStorage.setItem("name", userDetails.name)
                 sessionStorage.setItem("email", userDetails.email);
                 sessionStorage.setItem("avatar", userDetails.avatar);
                 sessionStorage.setItem("joinDate", userDetails.joinDate)
                 sessionStorage.setItem("isLoggedIn", true)
 
-                // redirect 
+                // Redirect to user page 
                 history.push({
                     pathname: '/dash',
                 });
             }
 
+            // If password is incorrect to corresponding email
             if(!found){
-                // set error message
+                // Set error message
                 console.log('Login failed');
                 setLoginFailed(true);
             }
 
         }
+
+        // If user does not exist
         if(userDetails == null){
-            // set error message
+            // Set error message
             console.log('User doesnt exist');
             setNullUser(true);
         }

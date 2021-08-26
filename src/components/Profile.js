@@ -1,6 +1,8 @@
+/* PROFILE - Profile page for logged in user to view, edit and delete account */
+
 import SideBar from "./SideBar"
 import './styles/Profile.css';
-import React, { useState, useEffect } from "react";
+import React, {useState} from "react";
 import { useHistory } from "react-router";
 import LogOut from "./LogOutButton";
 import imageToBase64 from 'image-to-base64/browser';
@@ -14,16 +16,24 @@ export default function Profile(){
     var avatar;
     var avatarUrl;
 
+    // Retrieve logged in user's email from session and retrieve user object from localStorage
     const email = sessionStorage.getItem("email");
-    // Retrieve the object from storage
     var retrievedObject = localStorage.getItem(email);
     const userDetails = JSON.parse(retrievedObject);
-    // Retrieve user password
+
+    // Retrieve logged in user password
     const userPassword = userDetails.password;
+
+    // Set logged in User's posts
     userPosts = userDetails.posts;
+
+    // Set logged in User's profile picture
     var profilePicture = userDetails.avatar;
+
+    // Set format to show profile picture of logged in user
     var ppUrl = "data:image/jpeg;base64," + profilePicture;
 
+    // Function to set selected file
     const onSelectFile = e => {
         if (!e.target.files || e.target.files.length === 0) {
             setSelectedFile(undefined);
@@ -33,16 +43,19 @@ export default function Profile(){
         setSelectedFile(e.target.files[0]);
     }
 
+    // Function to delete logged in user's account
     const deleteAccount = () => {
         localStorage.removeItem(email);
-        // redirect 
+        // Redirect to Landing Page 
         history.push({
             pathname: '/',
         });
     }
 
+    // Function to change logged in user's details
     const changeDetails = () => {
-
+            
+            // Check if new detail fields are empty, and set old information if so
             if(newPassword === ""){
                 setNewPassword(userPassword);
             }
@@ -51,28 +64,27 @@ export default function Profile(){
                 setNewName(sessionStorage.getItem("name"));
             }
 
-            // if(selectedFile === null){
-            //     avatarUrl = sessionStorage.getItem("avatar");
-            // }
-
+            // Check if selected file for profile picture is not null, if so get blob url for selected image
             if(selectedFile != null){
                 avatarUrl = URL.createObjectURL(selectedFile);
             }
 
-            imageToBase64(avatarUrl) // Path to the image
+            imageToBase64(avatarUrl) // Convert blob to base64 url
             .then(
                 (response) => {
+
+                    // If new file is selected, set new base64 url as profile picture
                     if(selectedFile != null){
                         avatar = response;
                     }
-
+                    
+                    // Else, set old profile picture as profile picture
                     else{
                         avatar = sessionStorage.getItem("avatar");
                     }
-
-                    console.log(response);
                     
-                    if(newPassword != "" && newName != ""){
+                    // If new password and new name are not empty, upload user object back to localStorage
+                    if(newPassword !== "" && newName !== ""){
                         const customer1 = {
                             avatar:avatar,
                             name: newName,
@@ -84,10 +96,15 @@ export default function Profile(){
                 
                         // Put the object into storage
                         localStorage.setItem(email, JSON.stringify(customer1));
+
+                        // Notify customer of changes
                         alert("You have changed your details successfully!");
+
+                        // Set new name and/or profile picture of logged in user as session objects
                         sessionStorage.setItem("name", newName);
                         sessionStorage.setItem("avatar", avatar);
-
+                        
+                        // Reload profile page
                         history.push({
                             pathname: '/profile',
                         });
@@ -110,7 +127,7 @@ export default function Profile(){
                     <LogOut/>
                 </div>
                 <div className = "profileDetails">
-                    <img className = "preview" src = {ppUrl}/> 
+                    <img className = "preview" src = {ppUrl} alt = "profile"/> 
                     <div className = "formLabel">{sessionStorage.getItem("name")}</div>
                     <div className = "formLabel">{sessionStorage.getItem("email")}</div>
                     <div className = "formLabel">Joined Date: {sessionStorage.getItem("joinDate")}</div>

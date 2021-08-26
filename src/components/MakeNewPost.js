@@ -1,3 +1,5 @@
+/* MAKE NEW POST - Page logged in users can make posts to show on their feed */
+
 import './styles/MakeNewPost.css';
 import SideBar from "./SideBar";
 import LogOut from "./LogOutButton";
@@ -14,13 +16,16 @@ export default function MakeNewPost(){
     var postImg;
     const history = useHistory();
 
-
+    // Retreieve logged in user email from session
     const email = sessionStorage.getItem("email");
     // Retrieve the object from storage
     var retrievedObject = localStorage.getItem(email);
     const userDetails = JSON.parse(retrievedObject);
+
+    // Retrieve logged in user's posts
     userPosts = userDetails.posts;
 
+    // Set preview for selected post image
     useEffect(() => {
         if (!selectedFile) {
             setPreview(undefined);
@@ -30,10 +35,10 @@ export default function MakeNewPost(){
         const objectUrl = URL.createObjectURL(selectedFile);
         setPreview(objectUrl);
 
-        // free memory when ever this component is unmounted
         return () => URL.revokeObjectURL(objectUrl);
     }, [selectedFile])
 
+    // Set selected file upon selecting file for post
     const onSelectFile = e => {
         if (!e.target.files || e.target.files.length === 0) {
             setSelectedFile(undefined);
@@ -44,10 +49,13 @@ export default function MakeNewPost(){
         console.log(selectedFile);
     }
 
+    // Upload post to logged in user's posts
     const uploadPost = () => {
-        if(textPost != "" && preview != null){
+
+        // Check if text post or image is empty
+        if(textPost !== "" && preview !== null){
             const imgUrl = URL.createObjectURL(selectedFile);
-            imageToBase64(imgUrl) // Path to the image
+            imageToBase64(imgUrl) // Convert post image blob to base64 url
             .then(
                 (response) => {
                     postImg = response;
@@ -61,9 +69,12 @@ export default function MakeNewPost(){
                         posts: userPosts,
                         joinDate: userDetails.joinDate
                     };
-
+                    
+                    // Reupload user object
                     localStorage.setItem(email, JSON.stringify(customer1));
                     alert("Post uploaded successfully!");
+
+                    // Redirect to dashboard
                     history.push({
                         pathname: '/dash',
                     });
@@ -79,6 +90,7 @@ export default function MakeNewPost(){
             
         }
 
+        // If text post or image empty, notify logged in user
         else{
             alert("Post and Image cannot be empty!")
         }
@@ -103,7 +115,7 @@ export default function MakeNewPost(){
                             <br></br>
                             <input type='file' onChange={onSelectFile} required/>
                             <br></br>
-                            {selectedFile &&  <img className = "preview" src={preview} />}
+                            {selectedFile &&  <img className = "preview" src={preview} alt = "new post"/>}
                         </div>
                     </div>
                     <br></br>

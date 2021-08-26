@@ -1,16 +1,21 @@
+/* DASHBOARD - Shows Logged in user's posts */
+
 import './styles/Dashboard.css';
-import React, { useState, useEffect } from "react";
+import React from "react";
 import SideBar from './SideBar';
 import LogOut from "./LogOutButton";
 import PostElement from './PostElement';
 
 export default function Dashboard(){
     var userPosts = [];
-    
+
+    // Retreieve email of logged in user from session
     const email = sessionStorage.getItem("email");
     // Retrieve the object from storage
     var retrievedObject = localStorage.getItem(email);
     const userDetails = JSON.parse(retrievedObject);
+
+    // Retrieve posts for logged in user
     userPosts = userDetails.posts;
 
 
@@ -25,7 +30,8 @@ export default function Dashboard(){
 
                 <div className = "postSection">
                     <div className = "feedQuote">Your feed</div>
-                     { userPosts.length > 0 ?
+                     {   // If no posts, show banner if not render posts for logged in user
+                         userPosts.length > 0 ?
                          userPosts.map((post) => (
                              <PostElement element={post} />))
                          : <div className='noPosts' >
