@@ -3,13 +3,16 @@ import './styles/Profile.css';
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import LogOut from "./LogOutButton";
+import imageToBase64 from 'image-to-base64/browser';
 
 export default function Profile(){
     const [newName, setNewName] = useState("");
     const [newPassword, setNewPassword] = useState("");
+    const [selectedFile, setSelectedFile] = useState();
     const history = useHistory();
     var userPosts = [];
     var avatar;
+    var avatarUrl;
 
     const email = sessionStorage.getItem("email");
     // Retrieve the object from storage
@@ -20,6 +23,15 @@ export default function Profile(){
     userPosts = userDetails.posts;
     var profilePicture = userDetails.avatar;
     var ppUrl = "data:image/jpeg;base64," + profilePicture;
+
+    const onSelectFile = e => {
+        if (!e.target.files || e.target.files.length === 0) {
+            setSelectedFile(undefined);
+            return;
+        }
+
+        setSelectedFile(e.target.files[0]);
+    }
 
     const deleteAccount = () => {
         localStorage.removeItem(email);
@@ -39,21 +51,54 @@ export default function Profile(){
                 setNewName(sessionStorage.getItem("name"));
             }
 
+            // if(selectedFile === null){
+            //     avatarUrl = sessionStorage.getItem("avatar");
+            // }
 
-            if(newPassword != "" && newName != ""){
-                const customer1 = {
-                    name: newName,
-                    email: email,
-                    password: newPassword,
-                    posts: userPosts,
-                    joinDate: sessionStorage.getItem("joinDate")
-                };
-        
-                // Put the object into storage
-                localStorage.setItem(email, JSON.stringify(customer1));
-                alert("You have changed your details successfully!");
-                sessionStorage.setItem("name", newName);
-            }    
+            if(selectedFile != null){
+                avatarUrl = URL.createObjectURL(selectedFile);
+            }
+
+            imageToBase64(avatarUrl) // Path to the image
+            .then(
+                (response) => {
+                    if(selectedFile != null){
+                        avatar = response;
+                    }
+
+                    else{
+                        avatar = sessionStorage.getItem("avatar");
+                    }
+
+                    console.log(response);
+                    
+                    if(newPassword != "" && newName != ""){
+                        const customer1 = {
+                            avatar:avatar,
+                            name: newName,
+                            email: email,
+                            password: newPassword,
+                            posts: userPosts,
+                            joinDate: sessionStorage.getItem("joinDate")
+                        };
+                
+                        // Put the object into storage
+                        localStorage.setItem(email, JSON.stringify(customer1));
+                        alert("You have changed your details successfully!");
+                        sessionStorage.setItem("name", newName);
+                        sessionStorage.setItem("avatar", avatar);
+
+                        history.push({
+                            pathname: '/profile',
+                        });
+                    }
+                }
+            )
+            .catch(
+                (error) => {
+                    console.log(error); // Logs an error if there was one
+                }
+            )    
     }
 
     return(
@@ -65,14 +110,18 @@ export default function Profile(){
                     <LogOut/>
                 </div>
                 <div className = "profileDetails">
-                    {<img className = "preview" src = {ppUrl}/> }
-                    <br></br>
+                    <img className = "preview" src = {ppUrl}/> 
                     <div className = "formLabel">{sessionStorage.getItem("name")}</div>
                     <div className = "formLabel">{sessionStorage.getItem("email")}</div>
                     <div className = "formLabel">Joined Date: {sessionStorage.getItem("joinDate")}</div>
                 </div>
                 <div className="profileQuote">You can check and change any of your details here!</div>
                 <div className = "profile">
+                    <div className = "imgChange">
+                        <div className = "formLabel">Change Profile Picture</div>
+                        <input type='file' onChange={onSelectFile} />
+                    </div>
+
                     <div className = "nameChange">
                         <div className = "formLabel">Change Name</div>
                         <input className = "formInput" type = "text" placeholder = " Change Name" 

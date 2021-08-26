@@ -45,8 +45,8 @@ export default function MakeNewPost(){
     }
 
     const uploadPost = () => {
-        const imgUrl = URL.createObjectURL(selectedFile);
-        if(textPost != ""){
+        if(textPost != "" && preview != null){
+            const imgUrl = URL.createObjectURL(selectedFile);
             imageToBase64(imgUrl) // Path to the image
             .then(
                 (response) => {
@@ -80,7 +80,7 @@ export default function MakeNewPost(){
         }
 
         else{
-            alert("Post cannot be empty!")
+            alert("Post and Image cannot be empty!")
         }
 
         
@@ -96,12 +96,18 @@ export default function MakeNewPost(){
                 </div>
                 <div className = "newPostQuote">Let the world know what your vibes are like today!</div>
                 <div className = "newPostForm">
-                        <textarea className = "formInput postText" onChange = {(e) => setTextPost(e.target.value)}></textarea>
+                    <div className = "newPostDetails">
+                        <textarea className = "formInput postText" onChange = {(e) => setTextPost(e.target.value)} required></textarea>
+                        <div className = "newPostImgUpload">
                             <div className = "formLabel">Upload Image</div>
+                            <br></br>
+                            <input type='file' onChange={onSelectFile} required/>
+                            <br></br>
                             {selectedFile &&  <img className = "preview" src={preview} />}
-                            <input type='file' onChange={onSelectFile}/>
-
-                        <button className = "signUpButton signUp signUpHover" onClick={() => uploadPost()}>Check my Vibe!</button>
+                        </div>
+                    </div>
+                    <br></br>
+                    <button className = "signUpButton signUp signUpHover" onClick={() => uploadPost()}>Check my Vibe!</button>
                 </div>
                 
             </div>

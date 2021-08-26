@@ -25,14 +25,13 @@ export default function SignUp(){
     const validate = () => {
         let retVal = true
         // Checking for empty form values
-        let fieldsName = ['name', 'email', 'password', 'confirmPassword']
-        let fields = [name, email, password, confirmPassword]
+        let fieldsName = ['name', 'email', 'password', 'confirmPassword', 'preview']
+        let fields = [name, email, password, confirmPassword, preview]
         let error_sections = new Map()
 
-
         for (let k = 0; k < fields.length; k++) {
-            if (fields[k] == "") {
-                error_sections.set(fieldsName[k], "All Fields must be Required!")
+            if (fields[k] == "" || fields[k] == null) {
+                error_sections.set(fieldsName[k], "All Fields must be filled in!")
                 retVal = false
             }
         }
@@ -46,7 +45,7 @@ export default function SignUp(){
         // Check for email format
         const emailRegex = /\S+@\S+\.\S+/;
         if (email != "" && !emailRegex.test(email)) {
-            error_sections.set('email', "Email must be in right format'")
+            error_sections.set('email', "Email must be in right format")
             retVal = false
         }
 
@@ -77,44 +76,45 @@ export default function SignUp(){
     }
 
     const handleSubmit = () => { 
-        const avatarUrl = URL.createObjectURL(selectedFile);
-        imageToBase64(avatarUrl) // Path to the image
-        .then(
-            (response) => {
-                avatar = response;
-                    if(validate()){
-                        const customer1 = {
-                            avatar: avatar,
-                            name: name,
-                            email: email,
-                            password: password,
-                            posts: [],
-                            joinDate: joinDate
-                        };
+        if (validate()){
+            const avatarUrl = URL.createObjectURL(selectedFile);
+            imageToBase64(avatarUrl) // Path to the image
+            .then(
+                (response) => {
+                    avatar = response;
+                        if(validate()){
+                            const customer1 = {
+                                avatar: avatar,
+                                name: name,
+                                email: email,
+                                password: password,
+                                posts: [],
+                                joinDate: joinDate
+                            };
 
-                        // Put the object into storage
-                        localStorage.setItem(email, JSON.stringify(customer1));
-                        alert("You have succesfully registered to Vibe Check!");
+                            // Put the object into storage
+                            localStorage.setItem(email, JSON.stringify(customer1));
+                            alert("You have succesfully registered to Vibe Check!");
 
-                        // Reset data
-                        setName("");
-                        setEmail("");
-                        setPassword("");
+                            // Reset data
+                            setName("");
+                            setEmail("");
+                            setPassword("");
 
-                        // Redirect to Login page
-                        history.push({
-                            pathname: '/signIn',
-                });
-            }
-                console.log(avatar);
-            }
-        )
-        .catch(
-            (error) => {
-                console.log(error); // Logs an error if there was one
-            }
-        )
-        
+                            // Redirect to Login page
+                            history.push({
+                                pathname: '/signIn',
+                    });
+                }
+                    console.log(avatar);
+                }
+            )
+            .catch(
+                (error) => {
+                    console.log(error); // Logs an error if there was one
+                }
+            )
+        }
     }
 
     return(
@@ -136,6 +136,7 @@ export default function SignUp(){
                             <div className = "formLabel">Avatar</div>
                             <input type='file' onChange={onSelectFile} />
                         </div>
+                        <span className="errorMessage"> {errors.get("preview")} </span>
                         <img></img>
                         <div className = "formElement">
                             <div className = "formLabel">Name</div>

@@ -13,7 +13,7 @@
 
 .dashTop{
     display: flex;
-    width: 90%;
+    width: 100%;
     align-self: center;
     color: white;
     font-size: 30px;
@@ -23,6 +23,10 @@
     padding-top: 40px;
     padding-bottom: 20px;
     background: #181822;
+}
+
+.dashHead{
+    margin-left: 40px;
 }
 
 .signOut{

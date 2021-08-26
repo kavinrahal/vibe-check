@@ -15,7 +15,7 @@
     margin-top: 40px;
 }
 
-.nameChange, .emailChange, .passwordChange{
+.nameChange, .emailChange, .passwordChange, .imgChange{
     display: flex;
     width: 40%;
     align-self: center;

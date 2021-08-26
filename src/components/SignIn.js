@@ -14,8 +14,8 @@ export default function SignIn(){
     const [password, setPassword] = useState("")
     const [errors, setErrors] = useState(new Map);
     const [loginFailed, setLoginFailed] = useState(false);
-    const [isLoggingIn, setIsLoggingIn] = useState(false);
-
+    const [nullUser, setNullUser] = useState(false);
+  
     const validate = () => {
         let retVal = true
 
@@ -25,33 +25,31 @@ export default function SignIn(){
         let error_sections = new Map()
         for (let k = 0; k < fields.length; k++) {
             if (fields[k] == "") {
-                error_sections.set(fieldsName[k], "All Fields Must be Required")
+                error_sections.set(fieldsName[k], "All Fields are Required")
                 retVal = false
             }
         }
+
         setErrors(error_sections)
         return retVal
     }
 
     const handleLogin = async () => {
-        if(validate()){
-            setIsLoggingIn(true);
-            let found = false;
-
-            // Retrieve the object from storage
-            var retrievedObject = localStorage.getItem(email);
-            const userDetails = JSON.parse(retrievedObject);
+          // Retrieve the object from storage
+        var retrievedObject = localStorage.getItem(email);
+        const userDetails = JSON.parse(retrievedObject);
+        
+        if(validate() && userDetails != null){
             // Retrieve user password
             const userPassword = userDetails.password;
+            let found = false;
 
-            if(password == userPassword){
-
+            if(password == userPassword && userPassword != null){
                 //Login successful
                 found = true;
                 // reset fields
                 setEmail("")
                 setPassword("")
-                setIsLoggingIn(false)
                 // Set Session Variable
                 sessionStorage.setItem("name", userDetails.name)
                 sessionStorage.setItem("email", userDetails.email);
@@ -68,10 +66,14 @@ export default function SignIn(){
             if(!found){
                 // set error message
                 console.log('Login failed');
-                setIsLoggingIn(false);
                 setLoginFailed(true);
             }
 
+        }
+        if(userDetails == null){
+            // set error message
+            console.log('User doesnt exist');
+            setNullUser(true);
         }
 
     }
@@ -103,6 +105,7 @@ export default function SignIn(){
                         </div>
                         <span className="errorMessage"> {errors.get("password")} </span>
                         {loginFailed && <div className="errorMessage" > Login failed, Please try again. </div>}
+                        {nullUser && <div className="errorMessage" > User does not exist, please sign up. </div>}
 
                         <button className = "signUpButton signUp signUpHover" onClick={() => handleLogin()}>Let's Goooo!</button>
                     </div>

@@ -86,11 +86,12 @@ const PostElement = ({ element }) => {
         <div className = "postElement">
                 <div className = "userText">
                     <div className = "postName">{name}</div>
+                    <div className = "postName">•</div>
                     <img className = "userAvatar" src = {ppUrl}/>
                 </div>
-                <div className = "postText">
-                    <img className = "preview" src = {imgUrl}/>
-                    {textPost}
+                <div className = "postView">
+                    <img className = "postImg" src = {imgUrl}/>
+                    <div className = "postDesc"><p>{textPost}</p></div>
                 </div>
                 <div className = "postButtons">
                     <div className = "editControls">
