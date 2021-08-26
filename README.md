@@ -5,6 +5,9 @@ A Social Network for University students to interact with each other during the 
 
 Made with React.js
 
+## SOURCE ##
+
+https://github.com/kavinrahal/vibe-check
 
 ## RELEASE NOTES ##
 
