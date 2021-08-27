@@ -71,8 +71,8 @@ export default function Landing(){
                 Not happy with how others see you on VC? No worries, changing your details is only a few clicks away! Just simply fill in the details
                 you want to change and double-click the button and you're good to go! <br></br><br></br>
 
-                There's also an option to delete your account on the profile page, but we really do advise against it, since it would really make us 
-                very sad. <br></br><br></br>
+                There's also an option to delete your account on the profile page, but we really do advise against it, since it would make us sad
+                to see you leave :( <br></br><br></br>
 
                 Happy Vibing!
 

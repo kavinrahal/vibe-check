@@ -17,9 +17,9 @@ export default function SideBar(){
                 <div className = "sloganTitle">Vibe Check</div>
             </div>
             <div className = "navigation">
-                <Link to = "/dash" style={{ textDecoration: 'none', color: '#5fa8a1'}} className = "nav hvr-sweep-to-bottom"><div className = "navItem"><img src = {home} className = "navLogo" alt = "home"></img>Home</div></Link>
-                <Link to = "/profile" style={{ textDecoration: 'none', color: '#5fa8a1' }} className = "nav hvr-sweep-to-bottom"><div className = "navItem"><img src = {profile} className = "navLogo" alt = "profile"></img>Profile</div></Link>
-                <Link to = "/make" style={{ textDecoration: 'none', color: '#5fa8a1' }} className = "nav hvr-sweep-to-bottom"><div className = "navItem"><img src = {newPost} className = "navLogo" alt = "new post"></img>Make New Post</div></Link>
+                <Link to = "/dash" style={{ textDecoration: 'none', color: '#5fa8a1'}} className = "nav nav-hover"><div className = "navItem"><img src = {home} className = "navLogo" alt = "home"></img>Home</div></Link>
+                <Link to = "/profile" style={{ textDecoration: 'none', color: '#5fa8a1' }} className = "nav nav-hover"><div className = "navItem"><img src = {profile} className = "navLogo" alt = "profile"></img>Profile</div></Link>
+                <Link to = "/make" style={{ textDecoration: 'none', color: '#5fa8a1' }} className = "nav nav-hover"><div className = "navItem"><img src = {newPost} className = "navLogo" alt = "new post"></img>Make New Post</div></Link>
             </div>
         </div>
     );
